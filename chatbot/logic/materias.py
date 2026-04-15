@@ -1,5 +1,3 @@
-# logic/materias.py
-
 PLAN_ESTUDIOS = {
     "1": {
         "101": "Algoritmos y Estructuras de Datos I", 
@@ -34,6 +32,9 @@ PLAN_ESTUDIOS = {
     },
     "5": {
         "501": "Proyecto Final de Carrera",
-        
+        "502": "Auditoria y Seguridad Informática",
+        "503": "Optativa I (Modelos y Simulación) - (Inteligencia Artificial) - (Estadística Inferencial)",
+        "504": "Optativa II (Integración de Redes (Internetworking)) - (Arquitecturas y Sistemas Operativos Avanzados) - ",
+        "505": "Optativa III (Diseño Web Centrado en el Usuario) - (Gestión de Recursos Informáticos) - (Formulación y Evaluación de Proyectos) - (Tópicos Avanzados de Ingeniería de Software)"
     }
 }

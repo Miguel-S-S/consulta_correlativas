@@ -71,7 +71,7 @@
 
     {% elif respuesta_motor.estado == 'completado' %}
         <div class="resultado-caja {% if respuesta_motor.es_posible %}resultado-exito{% else %}resultado-fallo{% endif %}">
-            <h3>Conclusión del Sistema Experto:</h3>
+            <h3>Respuesta:</h3>
             <p>{{ respuesta_motor.mensaje }}</p>
         </div>
     {% endif %}
