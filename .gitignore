@@ -1,0 +1,24 @@
+@"
+# Entorno virtual
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+media/
+
+# Variables de entorno
+.env
+
+# IDEs
+.vscode/
+.idea/
+"@ > .gitignore

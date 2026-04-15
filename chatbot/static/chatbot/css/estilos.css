@@ -1,0 +1,45 @@
+/* chatbot/static/chatbot/css/estilos.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    line-height: 1.6;
+}
+
+h1, h3 {
+    color: #333;
+}
+
+.boton-reinicio {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.caja-pregunta {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #0056b3;
+    margin-top: 20px;
+}
+
+.resultado-caja { 
+    padding: 15px; 
+    border: 2px solid; 
+    border-radius: 5px;
+    margin-top: 20px;
+    background-color: #fafafa;
+}
+
+.resultado-exito { 
+    border-color: #28a745; /* Verde */
+}
+
+.resultado-fallo { 
+    border-color: #dc3545; /* Rojo */
+}

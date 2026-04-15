@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Experto - Correlativas</title>
+    <link rel="stylesheet" href="{% static 'chatbot/css/estilos.css' %}">
+</head>
+<body>
+    <h1>Correlativas</h1>
+
+    <a href="{% url 'reiniciar_chat' %}">
+        <button class="boton-reinicio">Nueva consulta</button>
+    </a>
+    <hr>
+
+    {% if not materia_objetivo %}
+        <h3>Selecciona la materia de consulta:</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Intención:</label>
+            <select name="intencion">
+                <option value="cursar">Cursar</option>
+                <option value="rendir">Rendir</option>
+            </select>
+            <br><br>
+
+            <label>Materia:</label>
+            <select name="materia_objetivo">
+                <optgroup label="Primer Año">
+                    {% for codigo, nombre in plan_estudios.1.items %}
+                        <option value="{{ codigo }}">{{ codigo }} - {{ nombre }}</option>
+                    {% endfor %}
+                </optgroup>
+                <optgroup label="Segundo Año">
+                    {% for codigo, nombre in plan_estudios.2.items %}
+                        <option value="{{ codigo }}">{{ codigo }} - {{ nombre }}</option>
+                    {% endfor %}
+                </optgroup>
+                <optgroup label="Tercer Año">
+                    {% for codigo, nombre in plan_estudios.3.items %}
+                        <option value="{{ codigo }}">{{ codigo }} - {{ nombre }}</option>
+                    {% endfor %}
+                </optgroup>
+                <optgroup label="Cuarto Año">
+                    {% for codigo, nombre in plan_estudios.4.items %}
+                        <option value="{{ codigo}}">{{ codigo }} - {{ nombre }}</option>
+                    {% endfor %}
+                </optgroup>
+            </select>
+            <br><br>
+            <button type="submit">Consultar</button>
+        </form>
+
+    {% elif respuesta_motor.estado == 'requiere_info' %}
+        <div class="caja-pregunta">
+            <p><strong>Agente:</strong> {{ respuesta_motor.mensaje }}</p>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="materia_requisito" value="{{ respuesta_motor.materia_requisito }}">
+                
+                {% for opcion in respuesta_motor.opciones %}
+                    <input type="radio" id="{{ opcion }}" name="estado_requisito" value="{{ opcion }}" required>
+                    <label for="{{ opcion }}">{{ opcion|title }}</label><br>
+                {% endfor %}
+                <br>
+                <button type="submit">Enviar respuesta al Agente</button>
+            </form>
+        </div>
+
+    {% elif respuesta_motor.estado == 'completado' %}
+        <div class="resultado-caja {% if respuesta_motor.es_posible %}resultado-exito{% else %}resultado-fallo{% endif %}">
+            <h3>Conclusión del Sistema Experto:</h3>
+            <p>{{ respuesta_motor.mensaje }}</p>
+        </div>
+    {% endif %}
+
+</body>
+</html>
