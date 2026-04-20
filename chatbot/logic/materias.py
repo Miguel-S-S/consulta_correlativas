@@ -38,3 +38,22 @@ PLAN_ESTUDIOS = {
         "505": "Optativa III (Diseño Web Centrado en el Usuario) - (Gestión de Recursos Informáticos) - (Formulación y Evaluación de Proyectos) - (Tópicos Avanzados de Ingeniería de Software)"
     }
 }
+
+
+
+MATERIAS = {
+    codigo: nombre
+    for anio in PLAN_ESTUDIOS.values()
+    for codigo, nombre in anio.items()
+}
+
+
+def nombre_materia(codigo):
+    return MATERIAS.get(codigo, f"Materia {codigo}")
+
+
+def anio_materia(codigo):
+    for anio, materias in PLAN_ESTUDIOS.items():
+        if codigo in materias:
+            return anio
+    return None
