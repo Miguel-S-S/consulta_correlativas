@@ -31,7 +31,7 @@ class MotorCorrelativas(KnowledgeEngine):
         yield Fact(accion="evaluar")
 
     # =========================
-    # 101
+    # 101 Algoritmos y Estructuras de Datos I
     # =========================
     @Rule(
         Fact(accion="evaluar"),
@@ -48,7 +48,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
  # =========================
-    # 102
+    # 102 Algebra
     # =========================
     @Rule(
         Fact(accion="evaluar"),
@@ -65,7 +65,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
     # =========================
-    # 103 - Algoritmos II (requiere 101)
+    # 103 - Algoritmos y Estructuras de Datos II (requiere 101)
     # =========================
 
     # CASO A: Falta info para cursar o rendir
@@ -416,7 +416,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # ❌ No puede cursar si la tiene libre
+    # No puede cursar si la tiene libre
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="201"),
@@ -455,7 +455,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # ❌ No puede rendir si no está aprobada
+    # No puede rendir si no está aprobada
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="201"),
@@ -477,7 +477,8 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
    # =========================
-    # 202 - Arquitectura y Organización de Computadoras (requiere 104)
+    # 202 - Arquitectura y Organización de Computadoras (requiere 104 regular o aprobada y 101 aprobada para cursar)
+    # (Para rendir, requiere 104 aprobada)
     # =========================
 
     # CASO A: Falta información
@@ -486,7 +487,7 @@ class MotorCorrelativas(KnowledgeEngine):
         Consulta(intencion=MATCH.i, materia="202"),
         NOT(Alumno(materia_104=W()))
     )
-    def info_202(self, i):
+    def info_202_104(self, i):
         nombre = nombre_materia("202")
         req = nombre_materia("104")
 
@@ -495,7 +496,28 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="202",
             materia_requisito="104",
             opciones=["regular", "aprobada", "libre"],
-            mensaje=f"Para {i} {nombre} (202), necesito saber tu estado en {req} (104)."
+            mensaje=f"Para {i} {nombre} (202), necesito tu estado en {req} (104)."
+        ))
+    
+    @Rule(
+        Fact(accion="evaluar"),
+        Consulta(intencion=MATCH.i, materia="202"),
+        OR(
+            Alumno(materia_104="regular"),
+            Alumno(materia_104="aprobada")
+        ),
+        NOT(Alumno(materia_101=W()))
+    )
+    def info_202_101(self, i):
+        nombre = nombre_materia("202")
+        req = nombre_materia("101")
+
+        self.declare(Respuesta(
+            estado="requiere_info",
+            materia_consultada="202",
+            materia_requisito="101",
+            opciones=["aprobada", "regular", "libre"],
+            mensaje=f"Para {i} {nombre} (202), también necesito tu estado en {req} (101)."
         ))
 
 
