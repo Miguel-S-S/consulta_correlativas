@@ -2761,35 +2761,100 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 # =========================
-# 505 (requiere 405)
+# 505 - Optativa III
+# Requiere: 401
 # =========================
+
     # =========================
-    # 505 - CURSAR
+    # CASO A: falta información
+    # =========================
+    @Rule(
+        Fact(accion="evaluar"),
+        Consulta(intencion=MATCH.i, materia="505"),
+        NOT(Alumno(materia_401=W()))
+    )
+    def info_401_505(self, i):
+        nombre = nombre_materia("505")
+        req = nombre_materia("401")
+
+        self.declare(Respuesta(
+            estado="requiere_info",
+            materia_consultada="505",
+            materia_requisito="401",
+            opciones=["regular", "aprobada", "libre"],
+            mensaje=f"Para {i} {nombre} (505), necesito saber tu estado en {req} (401)."
+        ))
+
+
+    # =========================
+    # CURSAR
     # =========================
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="505"),
-        Alumno(materia_405="regular"),
-        Alumno(materia_401="aprobada")
+        OR(Alumno(materia_401="regular"), Alumno(materia_401="aprobada"))
     )
-    def puede_cursar_505(self):
+    def cursar_505_ok(self):
+        nombre = nombre_materia("505")
+        req = nombre_materia("401")
+
         self.declare(Respuesta(
             estado="completado",
             es_posible=True,
-            mensaje=" Puedes cursar la materia 505."
+            materia_consultada="505",
+            mensaje=f"Podés cursar {nombre} (505). Cumplís con {req} (401)."
         ))
+
+
+    @Rule(
+        Fact(accion="evaluar"),
+        Consulta(intencion="cursar", materia="505"),
+        Alumno(materia_401="libre")
+    )
+    def cursar_505_no(self):
+        nombre = nombre_materia("505")
+        req = nombre_materia("401")
+
+        self.declare(Respuesta(
+            estado="completado",
+            es_posible=False,
+            materia_consultada="505",
+            mensaje=f"No podés cursar {nombre} (505). Necesitás regularizar {req} (401)."
+        ))
+
+
     # =========================
-    # 505 - RENDIR
+    # RENDIR
     # =========================
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="505"),
-        Alumno(materia_401="aprobada"),
-        Alumno(materia_405="aprobada")
+        Alumno(materia_401="aprobada")
     )
-    def puede_rendir_505(self):
+    def rendir_505_ok(self):
+        nombre = nombre_materia("505")
+        req = nombre_materia("401")
+
         self.declare(Respuesta(
             estado="completado",
             es_posible=True,
-            mensaje=" Puedes rendir la materia 505."
+            materia_consultada="505",
+            mensaje=f"Podés rendir {nombre} (505). Tenés aprobada {req} (401)."
+        ))
+
+
+    @Rule(
+        Fact(accion="evaluar"),
+        Consulta(intencion="rendir", materia="505"),
+        OR(Alumno(materia_401="regular"), Alumno(materia_401="libre"))
+    )
+    def rendir_505_no(self):
+        nombre = nombre_materia("505")
+        req = nombre_materia("401")
+
+        self.declare(Respuesta(
+            estado="completado",
+            es_posible=False,
+            materia_consultada="505",
+            mensaje=f"No podés rendir {nombre} (505). Necesitás tener aprobada {req} (401)."
         ))
