@@ -40,7 +40,6 @@ PLAN_ESTUDIOS = {
 }
 
 
-
 MATERIAS = {
     codigo: nombre
     for anio in PLAN_ESTUDIOS.values()

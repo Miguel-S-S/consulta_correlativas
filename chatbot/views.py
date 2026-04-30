@@ -5,7 +5,7 @@ from .logic.rules import MotorCorrelativas, Consulta, Alumno, Respuesta
 
 
 def reiniciar_chat(request):
-    """Limpia la memoria del agente para una nueva consulta."""
+    """Limpieza de la memoria del agente para una nueva consulta."""
     request.session.flush()
     return redirect('chat_experto')
 
@@ -18,19 +18,19 @@ def chat_experto(request):
 
 
     if request.method == 'POST':
-
+        # CASO A
         if 'materia_objetivo' in request.POST:
             request.session['materia_objetivo'] = request.POST['materia_objetivo']
             request.session['intencion'] = request.POST.get('intencion', 'cursar')
             request.session['estado_alumno'] = {} 
-
+        # CASO B
         elif 'materia_requisito' in request.POST:
             materia_req = request.POST['materia_requisito']
             estado_req = request.POST['estado_requisito']
 
+            # Actualiza la memoria del agente
             estado_alumno = request.session['estado_alumno']
             estado_alumno[f"materia_{materia_req}"] = estado_req
-
             request.session['estado_alumno'] = estado_alumno
             request.session.modified = True
 

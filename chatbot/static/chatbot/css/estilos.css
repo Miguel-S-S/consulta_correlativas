@@ -37,9 +37,9 @@ h1, h3 {
 }
 
 .resultado-exito { 
-    border-color: #28a745; /* Verde */
+    border-color: #28a745; 
 }
 
 .resultado-fallo { 
-    border-color: #dc3545; /* Rojo */
+    border-color: #dc3545; 
 }

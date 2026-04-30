@@ -12,7 +12,7 @@ from .materias import nombre_materia
 
 
 class Alumno(Fact):
-    """Almacena el estado de las materias del alumno (materia_101='regular')"""
+    """Almacena el estado de las materias del alumno"""
     pass
 
 class Consulta(Fact):
@@ -30,9 +30,9 @@ class MotorCorrelativas(KnowledgeEngine):
     def _iniciar_evaluacion(self):
         yield Fact(accion="evaluar")
 
-    # =========================
+
     # 101 Algoritmos y Estructuras de Datos I
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="101")
@@ -47,9 +47,9 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Podés {i} {nombre} (101). No tiene materias correlativas."
         ))
 
- # =========================
+
     # 102 Algebra
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="102")
@@ -64,11 +64,11 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Podés {i} {nombre} (102). No tiene materias correlativas."
         ))
 
-    # =========================
+
     # 103 - Algoritmos y Estructuras de Datos II (requiere 101)
-    # =========================
 
     # CASO A: Falta info para cursar o rendir
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="103"),
@@ -86,10 +86,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (103), necesito saber tu estado en {req} (101)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -105,7 +102,6 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="103",
             mensaje=f"Podés cursar {nombre} (103)."
         ))
-
 
     @Rule(
         Fact(accion="evaluar"),
@@ -123,10 +119,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (103). Debés regularizar {req} (101)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -142,7 +135,6 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="103",
             mensaje=f"Podés rendir {nombre} (103)."
         ))
-
 
     @Rule(
         Fact(accion="evaluar"),
@@ -160,9 +152,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (103). Debés tener aprobada {req} (101)."
         ))
 
-    # =========================
     # 104 - Lógica y Matemática Computacional (requiere 102)
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -181,10 +171,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (104), necesito saber tu estado en {req} (102)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -200,7 +187,6 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="104",
             mensaje=f"Podés cursar {nombre} (104)."
         ))
-
 
     @Rule(
         Fact(accion="evaluar"),
@@ -218,10 +204,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (104). Necesitás regularizar {req} (102)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -255,9 +238,8 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (104). Necesitás tener aprobada {req} (102)."
         ))
         
-    # =========================
     # 105 - Sistemas y Organizaciones
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="105")
@@ -272,10 +254,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Podés {i} {nombre} (105). No tiene materias correlativas."
         ))
 
-
-    # =========================
     # 201 - Paradigmas y Lenguajes (requiere 103)
-    # =========================
 
     # CASO A: falta info
     @Rule(
@@ -295,10 +274,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (201), necesito saber tu estado en {req} (103)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -314,7 +290,6 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="201",
             mensaje=f"Podés cursar {nombre} (201)."
         ))
-
 
     @Rule(
         Fact(accion="evaluar"),
@@ -332,10 +307,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (201). Necesitás regularizar {req} (103)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -369,11 +341,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (201). Necesitás tener aprobada {req} (103)."
         ))
 
-    # =========================
     # 201 - Paradigmas y Lenguajes (requiere 103)
-    # =========================
 
     # CASO A: Falta información
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="201"),
@@ -391,12 +362,9 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (201), necesito saber tu estado en {req} (103)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
-    # ✔ Puede cursar si tiene regular o aprobada la 103
+    # Puede cursar si tiene regular o aprobada 103
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="201"),
@@ -433,12 +401,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (201). Necesitás regularizar {req} (103)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
-    # ✔ Puede rendir si tiene aprobada la 103
+    # Puede rendir si tiene aprobada 103
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="201"),
@@ -456,6 +422,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # No puede rendir si no está aprobada
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="201"),
@@ -476,12 +443,13 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-   # =========================
+
     # 202 - Arquitectura y Organización de Computadoras (requiere 104 regular o aprobada y 101 aprobada para cursar)
+
     # (Para rendir, requiere 104 aprobada)
-    # =========================
 
     # CASO A: Falta información
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="202"),
@@ -520,10 +488,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (202), también necesito tu estado en {req} (101)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -543,7 +508,6 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Podés cursar {nombre} (202)."
         ))
 
-
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="202"),
@@ -560,10 +524,8 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (202). Necesitás regularizar {req} (104)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
+
 
     @Rule(
         Fact(accion="evaluar"),
@@ -579,7 +541,6 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="202",
             mensaje=f"Podés rendir {nombre} (202)."
         ))
-
 
     @Rule(
         Fact(accion="evaluar"),
@@ -600,11 +561,11 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (202). Necesitás tener aprobada {req} (104)."
         ))
 
-    # =========================
+
     # 203 - Cálculo Diferencial e Integral (requiere 104)
-    # =========================
 
     # CASO A: Falta información
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="203"),
@@ -622,10 +583,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (203), necesito saber tu estado en {req} (104)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -662,10 +620,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (203). Necesitás regularizar {req} (104)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -703,11 +658,10 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
     
 
-    # =========================
     # 204 - Programación Orientada a Objetos (requiere 201)
-    # =========================
 
     # CASO A: Falta información
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="204"),
@@ -726,9 +680,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -766,9 +718,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -805,11 +755,12 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (204). Necesitás tener aprobada {req} (201)."
         ))
 
-   # =========================
+
     # 205 - Sistemas Operativos (requiere 202)
-    # =========================
+
 
     # CASO A: Falta información
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="205"),
@@ -827,10 +778,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (205), necesito saber tu estado en {req} (202)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -867,10 +815,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (205). Necesitás regularizar {req} (202)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -907,11 +852,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (205). Necesitás tener aprobada {req} (202)."
         ))
 
-    # =========================
     # 206 - Administración y Gestión de Organizaciones (requiere 105)
-    # =========================
 
     # CASO A: Falta información
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="206"),
@@ -930,9 +874,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -969,11 +911,8 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (206). Necesitás regularizar {req} (105)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
-
+    
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="206"),
@@ -1173,10 +1112,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (302). Necesitás regularizar {req} (202)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1213,9 +1149,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (302). Necesitás tener aprobada {req} (202)."
         ))
 
-    # =========================
     # 303 (204 y 206)
-    # =========================
+
+    # CASO A1: Falta el estado de la materia 204 
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="303"),
@@ -1227,25 +1164,27 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="303",
             materia_requisito="204",
             opciones=["regular", "aprobada", "libre"],
-            mensaje=f"Para {i} la materia 303 requiere que indiques el estado de la correlativa 204."
+            mensaje=f"Para {i} la materia Ingeniería de Software I (303) requiere que indiques el estado de la correlativa Programación Orientada a Objetos (204)."
         ))
+    
+    # CASO A2: Ya sabemos que tiene la 204 (regular o aprobada), pero falta la 206
 
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="303"),
-        OR(
-            Alumno(materia_204="regular"),
-            Alumno(materia_204="aprobada")
-        ),
+        OR(Alumno(materia_204="regular"), Alumno(materia_204="aprobada")),
         NOT(Alumno(materia_206=W()))
     )
     def info_206_303(self, i):
         self.declare(Respuesta(
             estado="requiere_info",
+            materia_consultada="303",
             materia_requisito="206",
             opciones=["regular", "aprobada", "libre"],
-            mensaje=f"Para {i} en la materia 303 también necesito el estado de la correlativa 206."
+            mensaje=f"Para {i} la materia Ingeniería de Software I (303) también necesito el estado de la correlativa Administración y Gestión de Organizaciones (206)."
         ))
+
+    # CASO B: Tiene AMBAS materias cumplidas (La conjunción Lógica AND)
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1257,37 +1196,39 @@ class MotorCorrelativas(KnowledgeEngine):
         self.declare(Respuesta(
             estado="completado",
             es_posible=True,
-            mensaje="Puedes cursar la materia 303 porque cumples con ambas correlativas (204 y 206)."
+            mensaje="Puedes cursar la materia Ingeniería de Software I (303) porque cumples con ambas correlativas Programación Orientada a Objetos (204) y Administración y Gestión de Organizaciones (206)."
         ))
+
+    # CASO C: Falla en la 204 (No importa la 206, ya no puede cursar)
 
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="303"),
-        OR(
-            Alumno(materia_204="libre"),
-            Alumno(materia_206="libre")
-        )
+        OR(Alumno(materia_204="libre"), Alumno(materia_206="libre"))
     )
     def cursar_303_no(self):
         self.declare(Respuesta(
             estado="completado",
             es_posible=False,
-            mensaje="No puedes cursar la materia 303 porque al menos una correlativa está en estado libre."
+            mensaje="No puedes cursar la materia Ingeniería de Software I (303) porque al menos una correlativa está en estado libre."
         ))
+
+    # CASO D: Falla en la 206 (Incluso si tiene la 204)
 
     @Rule(
         Fact(accion="evaluar"),
-        Consulta(intencion="rendir", materia="303"),
-        NOT(Alumno(materia_204=W()))
+        Consulta(intencion="cursar", materia="303"),
+        OR(Alumno(materia_204="regular"), Alumno(materia_204="aprobada")),
+        Alumno(materia_206="ninguna")
     )
-    def info_rendir_303(self):
+    def falla_206_para_303(self):
         self.declare(Respuesta(
-            estado="requiere_info",
-            materia_requisito="204",
-            opciones=["regular", "aprobada", "libre"],
-            mensaje="Para rendir 303 necesito el estado de la correlativa 204."
+            estado="completado",
+            es_posible=False,
+            mensaje="No puedes cursar Ingeniería de Software I (303). Tienes la Programación Orientada a Objetos (204), pero te falta regularizar Administración y Gestión de Organizaciones (206)."
         ))
 
+    # CASO E: Rendir 303 OK (Tiene AMBAS aprobadas)
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="303"),
@@ -1298,31 +1239,34 @@ class MotorCorrelativas(KnowledgeEngine):
         self.declare(Respuesta(
             estado="completado",
             es_posible=True,
-            mensaje="🎓 Puedes rendir la materia 303 porque ambas correlativas están aprobadas."
+            mensaje="✅ Puedes rendir la materia Ingeniería de Software I (303) porque tienes APROBADAS las correlativas Programación Orientada a Objetos (204) y Administración (206)."
         ))
 
+    # CASO F: Rendir 303 NO (Tiene alguna en regular o libre)
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="303"),
+        # Atrapamos si CUALQUIERA de las dos no está aprobada (ya sea regular o libre)
         OR(
-            Alumno(materia_204="regular"),
-            Alumno(materia_206="regular")
+            Alumno(materia_204="regular"), 
+            Alumno(materia_204="libre"), 
+            Alumno(materia_206="regular"), 
+            Alumno(materia_206="libre")
         )
     )
     def rendir_303_no(self):
         self.declare(Respuesta(
             estado="completado",
             es_posible=False,
-            mensaje="❌ No puedes rendir 303 porque debes tener ambas correlativas aprobadas."
+            mensaje="No puedes rendir Ingeniería de Software I (303). Para rendir el examen final el plan de estudios exige tener APROBADAS la 204 y la 206, no es suficiente con tenerlas regulares."
         ))
 
-
-    # =========================
     # 304 - Taller de Programación II
+
     # Requiere: 301 y 303
-    # =========================
 
     # CASO A1: Falta saber 301
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="304"),
@@ -1339,6 +1283,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO A2: Tiene 301 pero falta 303
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="304"),
@@ -1355,11 +1300,10 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
 
     # CASO B: Puede cursar (cumple ambas)
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="304"),
@@ -1376,6 +1320,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO C: Falla en 301
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="304"),
@@ -1391,6 +1336,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO D: Falla en 303
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="304"),
@@ -1405,12 +1351,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre_materia('304')} (304). Te falta regularizar {nombre_materia('303')} (303)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     # CASO A: Falta info para rendir (301)
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="304"),
@@ -1427,6 +1371,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO B: Tiene 301 pero falta 303
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="304"),
@@ -1444,6 +1389,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO C: Puede rendir
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="304"),
@@ -1460,6 +1406,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO D: Falla en 301
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="304"),
@@ -1475,6 +1422,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO E: Falla en 303
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="304"),
@@ -1489,12 +1437,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre_materia('304')} (304). Necesitás tener aprobada {nombre_materia('303')} (303)."
         ))
     
-
-    # =========================
     # 305 - Probabilidad y Estadística (requiere 203)
-    # =========================
 
     # CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="305"),
@@ -1510,9 +1456,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1542,11 +1486,10 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # RENDIR
-    # =========================
 
     # Falta info para rendir
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="305"),
@@ -1560,7 +1503,6 @@ class MotorCorrelativas(KnowledgeEngine):
             opciones=["regular", "aprobada", "libre"],
             mensaje=f"Para rendir {nombre_materia('305')} (305), necesito saber tu estado en {nombre_materia('203')} (203)."
         ))
-
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1590,11 +1532,10 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
    
 
-    # =========================
-    # 306 - Bases de Datos I (requiere 204)
-    # =========================
+# 306 - Bases de Datos I (requiere 204)
 
-    # CASO A: Falta info
+# CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="306"),
@@ -1609,10 +1550,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre_materia('306')} (306), necesito saber tu estado en {nombre_materia('204')} (204)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1641,12 +1579,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre_materia('306')} (306). Necesitás regularizar {nombre_materia('204')} (204)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     # Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="306"),
@@ -1688,12 +1624,11 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="306",
             mensaje=f"No podés rendir {nombre_materia('306')} (306). Necesitás tener aprobada {nombre_materia('204')} (204)."
         ))
-    
-    # =========================
+
     # 401 - Ingeniería de Software II (requiere 303)
-    # =========================
 
     # CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="401"),
@@ -1712,9 +1647,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1750,9 +1683,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1789,11 +1720,10 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
 
-    # =========================
     # 402 - Economía Aplicada (requiere 303)
-    # =========================
 
     # CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="402"),
@@ -1812,9 +1742,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1849,10 +1777,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (402). Necesitás regularizar {req} (303)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1887,12 +1812,11 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (402). Necesitás tener aprobada {req} (303)."
         ))
 
-
-    # =========================
     # 403 - Teoría de la Computación (requiere 305)
-    # =========================
+
 
     # CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="403"),
@@ -1910,10 +1834,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (403), necesito saber tu estado en {req} (305)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1948,10 +1869,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (403). Necesitás regularizar {req} (305)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1986,11 +1904,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (403). Necesitás tener aprobada {req} (305)."
         ))
 
-    # =========================
     # 404 - Redes de Datos (requiere 302)
-    # =========================
 
     # CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="404"),
@@ -2009,9 +1926,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2046,10 +1961,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (404). Necesitás regularizar {req} (302)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2084,12 +1996,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés rendir {nombre} (404). Necesitás tener aprobada {req} (302)."
         ))
 
-
-    # =========================
     # 405 - Bases de Datos II (requiere 306)
-    # =========================
 
     # CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="405"),
@@ -2107,10 +2017,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Para {i} {nombre} (405), necesito saber tu estado en {req} (306)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2145,10 +2052,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés cursar {nombre} (405). Necesitás regularizar {req} (306)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2183,12 +2087,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (405). Necesitás tener aprobada {req} (306)."
         ))
 
-
-    # =========================
     # 406 - Métodos Computacionales (requiere 305)
-    # =========================
 
     # CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="406"),
@@ -2207,9 +2109,7 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2244,10 +2144,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés cursar {nombre} (406). Necesitás regularizar {req} (305)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2282,11 +2179,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés rendir {nombre} (406). Necesitás tener aprobada {req} (305)."
         ))
 
-    # =========================
     # 501 - Proyecto Final de Carrera (requiere 404 y 405)
-    # =========================
 
     # CASO A1: Falta info de 404
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="501"),
@@ -2306,6 +2202,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO A2: Tiene 404 pero falta 405
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="501"),
@@ -2324,10 +2221,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Perfecto. Ahora necesito tu estado en {req} (405)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2380,10 +2274,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés cursar {nombre} (501). Te falta regularizar {req} (405)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2422,11 +2313,11 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"No podés rendir {nombre} (501). Necesitás tener todas las correlativas aprobadas."
         ))
 
-    # =========================
     # 502 - Auditoría y Seguridad Informática (requiere 404 y 405)
-    # =========================
+
 
     # CASO A1: Falta info de 404
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="502"),
@@ -2446,6 +2337,7 @@ class MotorCorrelativas(KnowledgeEngine):
 
 
     # CASO A2: Tiene 404 pero falta 405
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="502"),
@@ -2464,10 +2356,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Perfecto. Ahora necesito tu estado en {req} (405)."
         ))
 
-
-    # =========================
     # CURSAR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2520,10 +2409,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés cursar {nombre} (502). Te falta regularizar {req} (405)."
         ))
 
-
-    # =========================
-    # RENDIR
-    # =========================
+    # # RENDIR
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2562,12 +2448,10 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés rendir {nombre} (502). Necesitás tener todas las correlativas aprobadas."
         ))
 
-    # =========================
-    # 503 - Optativa I
-    # Requiere: 403
-    # =========================
+    # 503 - Optativa I    # Requiere: 403
 
     # CASO A: Falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="503"),
@@ -2586,9 +2470,8 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
+
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2623,10 +2506,7 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés cursar {nombre} (503). Necesitás regularizar {req} (403)."
         ))
 
-
-    # =========================
     # RENDIR
-    # =========================
 
     @Rule(
         Fact(accion="evaluar"),
@@ -2661,14 +2541,12 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés rendir {nombre} (503). Necesitás tener aprobada {req} (403)."
         ))
 
-    # =========================
+
     # 504 - Optativa II
     # Requiere: 404
-    # =========================
-
-    # =========================
+    
     # CASO A: falta información
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="504"),
@@ -2687,9 +2565,8 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="504"),
@@ -2724,9 +2601,8 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # RENDIR
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="504"),
@@ -2760,14 +2636,14 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f" No podés rendir {nombre} (504). Necesitás tener aprobada {req} (404)."
         ))
 
-# =========================
+
 # 505 - Optativa III
 # Requiere: 401
-# =========================
 
-    # =========================
+
+
     # CASO A: falta información
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="505"),
@@ -2786,9 +2662,8 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # CURSAR
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="cursar", materia="505"),
@@ -2823,9 +2698,8 @@ class MotorCorrelativas(KnowledgeEngine):
         ))
 
 
-    # =========================
     # RENDIR
-    # =========================
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="505"),
