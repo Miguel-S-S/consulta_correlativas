@@ -30,6 +30,20 @@ class MotorCorrelativas(KnowledgeEngine):
     def _iniciar_evaluacion(self):
         yield Fact(accion="evaluar")
 
+    # REGLA POR DEFECTO (Si no hay reglas para la materia)    
+    @Rule(
+        Fact(accion="evaluar"),
+        AS.c << Consulta(intencion=W(), materia=W()),
+        salience=-10 
+    )
+    def materia_sin_reglas(self, c):
+        materia_solicitada = c["materia"]
+        self.declare(Respuesta(
+            estado="completado",
+            es_posible=False, # Ponemos false para que pinte la caja roja
+            mensaje=f"Aún no he aprendido las reglas de correlatividad para la materia {materia_solicitada}. Mi base de conocimiento está en construcción. ¡Intenta con la 103 o la 303!"
+        ))
+
 
     # 101 Algoritmos y Estructuras de Datos I
 
@@ -221,7 +235,6 @@ class MotorCorrelativas(KnowledgeEngine):
             mensaje=f"Podés rendir {nombre} (104)."
         ))
 
-
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion="rendir", materia="104"),
@@ -257,6 +270,7 @@ class MotorCorrelativas(KnowledgeEngine):
     # 201 - Paradigmas y Lenguajes (requiere 103)
 
     # CASO A: falta info
+
     @Rule(
         Fact(accion="evaluar"),
         Consulta(intencion=MATCH.i, materia="201"),
@@ -323,7 +337,6 @@ class MotorCorrelativas(KnowledgeEngine):
             materia_consultada="201",
             mensaje=f"Podés rendir {nombre} (201)."
         ))
-
 
     @Rule(
         Fact(accion="evaluar"),
@@ -1239,7 +1252,7 @@ class MotorCorrelativas(KnowledgeEngine):
         self.declare(Respuesta(
             estado="completado",
             es_posible=True,
-            mensaje="✅ Puedes rendir la materia Ingeniería de Software I (303) porque tienes APROBADAS las correlativas Programación Orientada a Objetos (204) y Administración (206)."
+            mensaje="Puedes rendir la materia Ingeniería de Software I (303) porque tienes APROBADAS las correlativas Programación Orientada a Objetos (204) y Administración (206)."
         ))
 
     # CASO F: Rendir 303 NO (Tiene alguna en regular o libre)
