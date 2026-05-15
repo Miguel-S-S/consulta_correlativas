@@ -43,3 +43,24 @@ h1, h3 {
 .resultado-fallo { 
     border-color: #dc3545; 
 }
+
+.plan-container {
+    display: flex;
+    flex-direction: column;
+    gap: 90px; /* antes 35px */
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 200px;
+    padding-left: 40px;
+}
+
+.cuatrimestre {
+    display: flex;
+    gap: 45px; /* antes 20px */
+    align-items: center;
+    position: relative;
+}
+
+.materia-node {
+    width: 240px; /* antes 200 */
+    min-height: 110px; /* antes 90 */}

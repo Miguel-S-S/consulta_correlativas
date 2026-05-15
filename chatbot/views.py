@@ -1,8 +1,15 @@
+import json
 from django.shortcuts import render, redirect
 
 from .logic.materias import PLAN_ESTUDIOS, nombre_materia
 from .logic.rules import MotorCorrelativas, Consulta, Alumno, Respuesta
 
+def mapa_interactivo(request):
+    """Vista para el mapa curricular estilo grafo."""
+    contexto = {
+        'plan_estudios_json' : json.dumps(PLAN_ESTUDIOS)
+    }
+    return render(request, 'chatbot/mapa_interactivo.html', contexto)
 
 def reiniciar_chat(request):
     """Limpieza de la memoria del agente para una nueva consulta."""
